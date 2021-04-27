@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "637101847421",
+    "project_id": "healthkeeper-2a896",
+    "storage_bucket": "healthkeeper-2a896.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637101847421:android:ce3be19adf4e0d51d6d214",
+        "android_client_info": {
+          "package_name": "com.example.HealthKeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637101847421-0ke57gn7sergnmu9gtb2vvccoo2tvtmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXoVz8yQtpCQ7xc3_ucs3zkYYQQOmccn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637101847421-0ke57gn7sergnmu9gtb2vvccoo2tvtmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

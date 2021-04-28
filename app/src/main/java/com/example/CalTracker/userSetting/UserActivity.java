@@ -161,8 +161,6 @@ public class UserActivity extends AppCompatActivity {
         builder.setTitle("Record Method");
         final String []items=new String[]{"Manual","Photo"};
         builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-            //which指的是用户选择的条目的下标
-            //dialog:触发这个方法的对话框
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {

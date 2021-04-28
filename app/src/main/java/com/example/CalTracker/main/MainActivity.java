@@ -151,16 +151,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Take Photo action
      */
 
-    public void onTakePhotoClick(){
-        // Check permissions
-        if (!marshmallowPermission.checkPermissionForCamera()
-                || !marshmallowPermission.checkPermissionForExternalStorage()) {
-            marshmallowPermission.requestPermissionForCamera();
-        }  else {
-            Intent intent = new Intent(MainActivity.this, CameraActivity.class);
-            startActivityForResult(intent,REQUEST_TAKE_PHOTO);
-        }
-    }
+    
 
 
     public void getUsername_fromDatabse(){

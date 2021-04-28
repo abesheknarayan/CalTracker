@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:637101847421:android:ce3be19adf4e0d51d6d214",
         "android_client_info": {
-          "package_name": "com.example.HealthKeeper"
+          "package_name": "com.example.CalTracker"
         }
       },
       "oauth_client": [

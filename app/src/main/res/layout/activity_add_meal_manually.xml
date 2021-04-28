@@ -78,7 +78,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="@string/e_g_hamburger"/>
+                android:hint="@string/e_g_Dosa"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

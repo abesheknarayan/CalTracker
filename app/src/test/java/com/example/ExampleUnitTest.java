@@ -1,4 +1,4 @@
-package com.example.HealthKeeper;
+package com.example.CalTracker;
 
 import org.junit.Test;
 

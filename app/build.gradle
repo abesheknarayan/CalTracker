@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.example.HealthKeeper"
+        applicationId "com.example.CalTracker"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

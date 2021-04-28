@@ -49,7 +49,7 @@
                 android:textColor="#869d9d"
                 android:textSize="20sp" />
 
-            <com.example.HealthKeeper.userSetting.MyListView
+            <com.example.CalTracker.userSetting.MyListView
                 android:id="@+id/listView_breakfast"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
@@ -62,7 +62,7 @@
                 android:textSize="20sp" />
 
 
-            <com.example.HealthKeeper.userSetting.MyListView
+            <com.example.CalTracker.userSetting.MyListView
                 android:id="@+id/listView_lunch"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
@@ -74,7 +74,7 @@
                 android:textColor="#869d9d"
                 android:textSize="20sp" />
 
-            <com.example.HealthKeeper.userSetting.MyListView
+            <com.example.CalTracker.userSetting.MyListView
                 android:id="@+id/listView_dinner"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
@@ -86,7 +86,7 @@
                 android:textColor="#869d9d"
                 android:textSize="20sp" />
 
-            <com.example.HealthKeeper.userSetting.MyListView
+            <com.example.CalTracker.userSetting.MyListView
                 android:id="@+id/listView_other"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>

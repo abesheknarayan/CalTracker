@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HealthKeeper</string>
+    <string name="app_name">CalTracker</string>
     <string name="delete">YES</string>
     <string name="dialog_delete_title">Log Out</string>
     <string name="dialog_delete_msg">Do you want to log out of the app?</string>
@@ -35,7 +35,7 @@
     <string name="details_information">Details Information</string>
     <string name="e_g_100_kilocalorie">e.g. 100 kilocalorie</string>
     <string name="food_calorie">Food Calorie:</string>
-    <string name="e_g_hamburger">e.g. Hamburger</string>
+    <string name="e_g_Dosa">e.g Dosa</string>
     <string name="required_information">Required Information</string>
     <string name="save">Save</string>
     <string name="add_custom_food">Add Custom Food</string>
@@ -52,7 +52,7 @@
     <string name="your_can_still_intake">Your can still intake : </string>
     <string name="kilojoules">kilojoules</string>
     <string name="recommended_intake">Recommended intake : </string>
-    <string name="healthkeeper">HealthKeeper</string>
+    <string name="healthkeeper">CalTracker</string>
     <string name="slogan">Eat healthy, live better.</string>
     <string name="health_report">Health Report</string>
     <string name="calorie">calorie</string>

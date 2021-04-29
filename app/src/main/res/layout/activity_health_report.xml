@@ -95,14 +95,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/my_weight"
-        android:textColor="#869d9d"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -412,7 +404,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/darker_gray"
                         android:textStyle="italic"
-                        android:text=""
+                        android:text="NIL"
                         android:textSize="19sp"/>
                 </LinearLayout>
 
@@ -910,7 +902,7 @@
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="14700.0"
+                            android:text="0.0"
                             android:textSize="12sp"/>
                         <Space
                             android:layout_width="0dp"
@@ -966,7 +958,7 @@
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text=""
+                            android:text="0.0"
                             android:textSize="12sp"/>
                         <Space
                             android:layout_width="0dp"
@@ -1023,7 +1015,7 @@
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text=""
+                            android:text="0.0"
                             android:textSize="12sp"/>
                         <Space
                             android:layout_width="0dp"
@@ -1081,7 +1073,7 @@
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text=""
+                            android:text="0.0"
                             android:textSize="12sp"/>
                         <Space
                             android:layout_width="0dp"

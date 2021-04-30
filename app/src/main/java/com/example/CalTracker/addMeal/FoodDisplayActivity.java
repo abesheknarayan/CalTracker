@@ -238,7 +238,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         //Already ingested
                                                         calorieIntake.setText(Double.toString(allCalorieCount));
 
-                                                        //Recommended total amount default 2078cal = 8700kj
                                                         calorieTotal.setText("2078 cal");
 
                                                         //intake left

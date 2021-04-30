@@ -51,7 +51,7 @@ dependencies {
     implementation 'com.google.mlkit:image-labeling:17.0.0'
     //google play service
     implementation 'com.google.android.gms:play-services-mlkit-image-labeling:16.0.0'
-
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 
     //Glide

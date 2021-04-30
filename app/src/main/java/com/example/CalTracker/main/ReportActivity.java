@@ -41,6 +41,12 @@ public class ReportActivity extends AppCompatActivity {
     public ArrayList<CustomFood> customFoodArrayList = new ArrayList<>();
 
 
+    int carb_percent_acc_to_calorie = 14;
+    int protien_percent_acc_to_calorie = 4;
+    int fat_percent_acc_to_calorie = 3;
+
+
+
     DatabaseReference databaseReference;
 
     //bmi bar
@@ -91,8 +97,8 @@ public class ReportActivity extends AppCompatActivity {
 
 
         toMain = (LinearLayout)findViewById(R.id.report_ll_quit);
-        switchToCalorieView = (Button)findViewById(R.id.btn_report_calorie);
-        switchToNutrientView =  (Button)findViewById(R.id.btn_report_nutrient);
+//        switchToCalorieView = (Button)findViewById(R.id.btn_report_calorie);
+//        switchToNutrientView =  (Button)findViewById(R.id.btn_report_nutrient);
         CalorieView = (LinearLayout)findViewById(R.id.ll_report_calorie);
         NutrientView = (LinearLayout)findViewById(R.id.ll_report_nutrient);
         LabelCalorie = (ImageView)findViewById(R.id.label_report_calorie);
@@ -146,27 +152,31 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        switchToCalorieView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NutrientView.setVisibility(View.GONE);
-                LabelNutrient.setVisibility(View.INVISIBLE);
-                LabelCalorie.setVisibility(View.VISIBLE);
-                CalorieView.setVisibility(View.VISIBLE);
-            }
-        });
+        CalorieView.setVisibility(View.GONE);
+        LabelCalorie.setVisibility(View.INVISIBLE);
+        LabelNutrient.setVisibility(View.VISIBLE);
+        NutrientView.setVisibility(View.VISIBLE);
 
-        switchToNutrientView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CalorieView.setVisibility(View.GONE);
-                LabelCalorie.setVisibility(View.INVISIBLE);
-                LabelNutrient.setVisibility(View.VISIBLE);
-                NutrientView.setVisibility(View.VISIBLE);
+//        switchToCalorieView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NutrientView.setVisibility(View.GONE);
+//                LabelNutrient.setVisibility(View.INVISIBLE);
+//                LabelCalorie.setVisibility(View.VISIBLE);
+//                CalorieView.setVisibility(View.VISIBLE);
+//            }
+//        });
 
-            }
-        });
+//        switchToNutrientView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CalorieView.setVisibility(View.GONE);
+//                LabelCalorie.setVisibility(View.INVISIBLE);
+//                LabelNutrient.setVisibility(View.VISIBLE);
+//                NutrientView.setVisibility(View.VISIBLE);
 
+//            }
+//        });
     }
 
     public void get_Weight_BMI_fromDatabase(){

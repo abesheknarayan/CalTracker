@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.example.CalTracker.R;
@@ -55,10 +57,13 @@ public class FoodDisplayActivity extends AppCompatActivity {
     ImageView food_display_photo;
 
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -92,6 +97,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
         food_display_photo = (ImageView) findViewById(R.id.food_display_photo);
 
     }
+
 
     public void getQuantityCategory(final MyCallBack myCallBack){
         //get userID
@@ -238,10 +244,10 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         //Already ingested
                                                         calorieIntake.setText(Double.toString(allCalorieCount));
 
-                                                        calorieTotal.setText("2078 cal");
+                                                        calorieTotal.setText( Double.toString(2078) + "Cal");
 
                                                         //intake left
-                                                        Double d_calorieLeft = 2078- allCalorieCount;
+                                                        Double d_calorieLeft = 2078 - allCalorieCount;
                                                         calorieLeft.setText(Double.toString(d_calorieLeft)+" cal");
 
                                                         //progressBar

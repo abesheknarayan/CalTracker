@@ -137,26 +137,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void userChoice(){
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setIcon(getDrawable(R.drawable.icon_alert));
-        builder.setTitle("Record Method");
-        final String []items=new String[]{"Manual","Photo"};
-        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-            //'which' refers to the subscript of the item selected by the user
-            //'dialog' triggers this method
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    onManualClick();
-                    dialog.dismiss();
-                }
-                if (which == 1){
-                    onTakePhotoClick();
-                    dialog.dismiss();
-                }
-            }
-        });
-        builder.show();
+        onManualClick();
     }
 
     public void onManualClick(){
@@ -170,16 +151,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Take Photo action
      */
 
-    public void onTakePhotoClick(){
-        // Check permissions
-        if (!marshmallowPermission.checkPermissionForCamera()
-                || !marshmallowPermission.checkPermissionForExternalStorage()) {
-            marshmallowPermission.requestPermissionForCamera();
-        }  else {
-            Intent intent = new Intent(MainActivity.this, CameraActivity.class);
-            startActivityForResult(intent,REQUEST_TAKE_PHOTO);
-        }
-    }
+    
 
 
     public void getUsername_fromDatabse(){

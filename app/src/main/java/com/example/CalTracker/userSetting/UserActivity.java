@@ -156,26 +156,7 @@ public class UserActivity extends AppCompatActivity {
         });
     }
     public void userChoice(){
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setIcon(getDrawable(R.drawable.icon_alert));
-        builder.setTitle("Record Method");
-        final String []items=new String[]{"Manual","Photo"};
-        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-            //which指的是用户选择的条目的下标
-            //dialog:触发这个方法的对话框
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    onManualClick();
-                    dialog.dismiss(); //When the user selects a value, the dialog box disappears
-                }
-                if (which == 1){
-                    onTakePhotoClick();
-                    dialog.dismiss(); //When the user selects a value, the dialog box disappears
-                }
-            }
-        });
-        builder.show();
+        onManualClick();
     }
 
     public void onManualClick(){
@@ -185,16 +166,6 @@ public class UserActivity extends AppCompatActivity {
         }
     }
 
-    public void onTakePhotoClick(){
-        // Check permissions
-        if (!marshmallowPermission.checkPermissionForCamera()
-                || !marshmallowPermission.checkPermissionForExternalStorage()) {
-            marshmallowPermission.requestPermissionForCamera();
-        }  else {
-            Intent intent = new Intent(UserActivity.this, CameraActivity.class);
-            startActivity(intent);
-        }
-    }
 
 
     public void getUsername_fromDatabse(){

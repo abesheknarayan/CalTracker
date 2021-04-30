@@ -41,6 +41,12 @@ public class ReportActivity extends AppCompatActivity {
     public ArrayList<CustomFood> customFoodArrayList = new ArrayList<>();
 
 
+    int carb_percent_acc_to_calorie = 14;
+    int protien_percent_acc_to_calorie = 4;
+    int fat_percent_acc_to_calorie = 3;
+
+
+
     DatabaseReference databaseReference;
 
     //bmi bar
@@ -91,8 +97,8 @@ public class ReportActivity extends AppCompatActivity {
 
 
         toMain = (LinearLayout)findViewById(R.id.report_ll_quit);
-        switchToCalorieView = (Button)findViewById(R.id.btn_report_calorie);
-        switchToNutrientView =  (Button)findViewById(R.id.btn_report_nutrient);
+//        switchToCalorieView = (Button)findViewById(R.id.btn_report_calorie);
+//        switchToNutrientView =  (Button)findViewById(R.id.btn_report_nutrient);
         CalorieView = (LinearLayout)findViewById(R.id.ll_report_calorie);
         NutrientView = (LinearLayout)findViewById(R.id.ll_report_nutrient);
         LabelCalorie = (ImageView)findViewById(R.id.label_report_calorie);
@@ -146,27 +152,31 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        switchToCalorieView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NutrientView.setVisibility(View.GONE);
-                LabelNutrient.setVisibility(View.INVISIBLE);
-                LabelCalorie.setVisibility(View.VISIBLE);
-                CalorieView.setVisibility(View.VISIBLE);
-            }
-        });
+        CalorieView.setVisibility(View.GONE);
+        LabelCalorie.setVisibility(View.INVISIBLE);
+        LabelNutrient.setVisibility(View.VISIBLE);
+        NutrientView.setVisibility(View.VISIBLE);
 
-        switchToNutrientView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CalorieView.setVisibility(View.GONE);
-                LabelCalorie.setVisibility(View.INVISIBLE);
-                LabelNutrient.setVisibility(View.VISIBLE);
-                NutrientView.setVisibility(View.VISIBLE);
+//        switchToCalorieView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NutrientView.setVisibility(View.GONE);
+//                LabelNutrient.setVisibility(View.INVISIBLE);
+//                LabelCalorie.setVisibility(View.VISIBLE);
+//                CalorieView.setVisibility(View.VISIBLE);
+//            }
+//        });
 
-            }
-        });
+//        switchToNutrientView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CalorieView.setVisibility(View.GONE);
+//                LabelCalorie.setVisibility(View.INVISIBLE);
+//                LabelNutrient.setVisibility(View.VISIBLE);
+//                NutrientView.setVisibility(View.VISIBLE);
 
+//            }
+//        });
     }
 
     public void get_Weight_BMI_fromDatabase(){
@@ -435,7 +445,7 @@ public class ReportActivity extends AppCompatActivity {
                                                 }
                                             }
 
-                                            System.out.println("==========a嗷嗷=="+customFoodArrayList.size());
+                                            System.out.println("==========a=="+customFoodArrayList.size());
 
 
                                             getQuantityCategory(new MyCallBack() {
@@ -463,7 +473,7 @@ public class ReportActivity extends AppCompatActivity {
                                                     int typesCount = 0;
                                                     if(usersFoodArrayList1.size() == customFoodArrayList.size()){
                                                         typesCount = customFoodArrayList.size();
-                                                        System.out.println("==========呵呵=="+customFoodArrayList.size()+usersFoodArrayList1.size());
+                                                        System.out.println("============"+customFoodArrayList.size()+usersFoodArrayList1.size());
 
                                                         //calculate calorie of all food
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
@@ -676,7 +686,7 @@ public class ReportActivity extends AppCompatActivity {
                                                     d_dinnerPercent = d_dinnerPercent * 100;
                                                     d_otherPercent = d_otherPercent * 100;
 
-                                                    String str_breakfastPercent = df.format(d_breakfastPercent);//format返回String
+                                                    String str_breakfastPercent = df.format(d_breakfastPercent);//formatString
                                                     String str_lunchPercent = df.format(d_lunchPercent);
                                                     String str_dinnerPercent = df.format(d_dinnerPercent);
                                                     String str_otherPercent = df.format(d_otherPercent);

@@ -46,12 +46,8 @@
             android:label="profile"/>
         <activity android:name=".userSetting.MyFoodList"
             android:label="MyFoodList"/>
-        <activity android:name=".addMeal.CameraActivity"
-            android:label="take_photo"/>
         <activity android:name=".main.ReportActivity"
             android:label="report"/>
-        <activity android:name=".addMeal.ImageConfirmActivity"
-            android:label="imageInfo_confirm"/>
         <activity android:name=".addMeal.ManuallyInputActivity"
         android:label="Manually_input"/>
         <activity android:name=".addMeal.FoodDisplayActivity"

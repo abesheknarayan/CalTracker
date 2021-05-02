@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import com.example.CalTracker.R;
+import com.squareup.picasso.Picasso;
 
 public class NewsAdapter extends BaseAdapter{
     private ArrayList<NewsBean> list;
@@ -53,8 +54,7 @@ public class NewsAdapter extends BaseAdapter{
         TextView item_tv_title = (TextView) view.findViewById(R.id.item_tv_title);
 
         NewsBean newsBean = list.get(position);
-
-        item_img_icon.setImageDrawable(newsBean.icon);
+        Picasso.get().load(newsBean.icon).into(item_img_icon);
         item_tv_title.setText(newsBean.title);
         item_tv_des.setText(newsBean.des);
 

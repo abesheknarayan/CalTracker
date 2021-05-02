@@ -2,6 +2,7 @@ package com.example.CalTracker.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 import com.example.CalTracker.R;
 import com.example.CalTracker.addMeal.CustomFood;
@@ -33,12 +35,21 @@ import com.example.CalTracker.login.User;
 public class ReportActivity extends AppCompatActivity {
 
     public static String uid;
-    public String weight,bmi,height;
+    public static String weight,bmi,height,gender,age;
     public String foodname,quantity,category;
     public String calorie,carbohydrate,fat,protein;
 
     public ArrayList<UsersFood> usersFoodArrayList = new ArrayList<>();
     public ArrayList<CustomFood> customFoodArrayList = new ArrayList<>();
+
+
+    public int carb_percent_acc_to_calorie = 12;
+    public int protien_percent_acc_to_calorie = 6;
+    public int fat_percent_acc_to_calorie = 2;
+
+    public static double bmr = 0;
+    public static String bmr_string;
+
 
 
     DatabaseReference databaseReference;
@@ -91,8 +102,8 @@ public class ReportActivity extends AppCompatActivity {
 
 
         toMain = (LinearLayout)findViewById(R.id.report_ll_quit);
-        switchToCalorieView = (Button)findViewById(R.id.btn_report_calorie);
-        switchToNutrientView =  (Button)findViewById(R.id.btn_report_nutrient);
+//        switchToCalorieView = (Button)findViewById(R.id.btn_report_calorie);
+//        switchToNutrientView =  (Button)findViewById(R.id.btn_report_nutrient);
         CalorieView = (LinearLayout)findViewById(R.id.ll_report_calorie);
         NutrientView = (LinearLayout)findViewById(R.id.ll_report_nutrient);
         LabelCalorie = (ImageView)findViewById(R.id.label_report_calorie);
@@ -133,8 +144,14 @@ public class ReportActivity extends AppCompatActivity {
         //display weight and BMI from database
         get_Weight_BMI_fromDatabase();
 
+
+
+
+        // calc BMR = basic metabolic rate
+
+
         //get Calorie and Nutrient info from database
-        initCalorie_initNutrient();
+//
 
         toMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,32 +163,65 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        switchToCalorieView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NutrientView.setVisibility(View.GONE);
-                LabelNutrient.setVisibility(View.INVISIBLE);
-                LabelCalorie.setVisibility(View.VISIBLE);
-                CalorieView.setVisibility(View.VISIBLE);
-            }
-        });
+        CalorieView.setVisibility(View.GONE);
+        LabelCalorie.setVisibility(View.INVISIBLE);
+        LabelNutrient.setVisibility(View.VISIBLE);
+        NutrientView.setVisibility(View.VISIBLE);
 
-        switchToNutrientView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CalorieView.setVisibility(View.GONE);
-                LabelCalorie.setVisibility(View.INVISIBLE);
-                LabelNutrient.setVisibility(View.VISIBLE);
-                NutrientView.setVisibility(View.VISIBLE);
+//        switchToCalorieView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NutrientView.setVisibility(View.GONE);
+//                LabelNutrient.setVisibility(View.INVISIBLE);
+//                LabelCalorie.setVisibility(View.VISIBLE);
+//                CalorieView.setVisibility(View.VISIBLE);
+//            }
+//        });
 
-            }
-        });
+//        switchToNutrientView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CalorieView.setVisibility(View.GONE);
+//                LabelCalorie.setVisibility(View.INVISIBLE);
+//                LabelNutrient.setVisibility(View.VISIBLE);
+//                NutrientView.setVisibility(View.VISIBLE);
+
+//            }
+//        });
+    }
+
+    public void get_BMR()
+    {
+        Log.d("height",height);
+        Log.d("weight",weight);
+        Log.d("age",age);
+        Log.d("gender",gender);
+        Double now_height,now_weight,now_age;
+        now_height = Double.parseDouble(height);
+        now_weight = Double.parseDouble(weight);
+        now_age = Double.parseDouble(age);
+        DecimalFormat df = new DecimalFormat("0.00");
+        // used Miffin-St Jeor Equation
+        if(gender.equals("Male"))
+        {
+            // male
+            bmr = 10*now_weight + (6.25)*(now_height) - 5*now_age + 5;
+        }
+        else{
+            // female
+            bmr = 10*now_weight + (6.25)*(now_height) - 5*now_age - 161;
+        }
+        bmr_string = Double.toString(bmr);
+        Log.d("get_BMR: ",bmr_string);
+
+
 
     }
 
     public void get_Weight_BMI_fromDatabase(){
         //get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.d( "BMI_fromDatabase: ","here");
 
         //Get the weight and BMI of the current user from the database
         databaseReference.child("Users").child(uid)
@@ -181,55 +231,59 @@ public class ReportActivity extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-
                             for(DataSnapshot d: snapshot.getChildren()){
 
                                 String userInfo_Key = d.getKey();
-                                if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
+                                if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("notFirstTime") && !(d.getChildrenCount() == 3)) {
 
                                     databaseReference.child("Users").child(uid)
                                             .child(userInfo_Key).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            for(DataSnapshot d: dataSnapshot.getChildren()) {
+                                            for (DataSnapshot d : dataSnapshot.getChildren()) {
 
                                                 String d_Key = d.getKey();
-                                                if(d_Key.equals("weight")){
+                                                if (d_Key.equals("weight")) {
                                                     weight = d.getValue().toString();
-                                                    currentWeightTV.setText(weight+"kg");
+                                                    currentWeightTV.setText(weight + "kg");
+                                                    Log.d("weight", weight);
 
-                                                }
-                                                if(d_Key.equals("height")){
+                                                } else if (d_Key.equals("height")) {
                                                     height = d.getValue().toString();
-                                                }
+                                                    Log.d("height", height);
 
-                                                if(d_Key.equals("bmi")){
+                                                } else if (d_Key.equals("age")) {
+                                                    age = d.getValue().toString();
+                                                    Log.d("age", age);
+
+                                                } else if (d_Key.equals("gender")) {
+                                                    gender = d.getValue().toString();
+                                                    Log.d("gender", gender);
+                                                } else if (d_Key.equals("bmi")) {
                                                     bmi = d.getValue().toString();
+                                                    Log.d("bmi", bmi);
 
                                                     Double d_bmi = Double.parseDouble(bmi);
                                                     DecimalFormat df = new DecimalFormat("0.00");
                                                     String str_bmi = df.format(d_bmi);
-                                                    if(d_bmi < 18.5){
+                                                    if (d_bmi < 18.5) {
                                                         bar_lean.setVisibility(View.VISIBLE);
                                                         bubble_lean.setVisibility(View.VISIBLE);
                                                         text_lean.setText(str_bmi);
                                                         text_lean.setVisibility(View.VISIBLE);
-                                                    }
-                                                    else if(18.5 <= d_bmi && d_bmi<25){
+                                                    } else if (18.5 <= d_bmi && d_bmi < 25) {
                                                         bar_normal.setVisibility(View.VISIBLE);
                                                         bubble_normal.setVisibility(View.VISIBLE);
                                                         text_normal.setText(str_bmi);
                                                         text_normal.setVisibility(View.VISIBLE);
 
-                                                    }
-                                                    else if(25 <= d_bmi && d_bmi <30){
+                                                    } else if (25 <= d_bmi && d_bmi < 30) {
                                                         bar_overweight.setVisibility(View.VISIBLE);
                                                         bubble_overweight.setVisibility(View.VISIBLE);
                                                         text_overweight.setText(str_bmi);
                                                         text_overweight.setVisibility(View.VISIBLE);
 
-                                                    }
-                                                    else if(30 <= d_bmi){
+                                                    } else if (30 <= d_bmi) {
                                                         bar_obese.setVisibility(View.VISIBLE);
                                                         bubble_obese.setVisibility(View.VISIBLE);
                                                         text_obese.setText(str_bmi);
@@ -239,18 +293,24 @@ public class ReportActivity extends AppCompatActivity {
 
                                                 }
                                             }
+                                            get_BMR();
+                                            initCalorie_initNutrient();
+
                                         }
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
 
                                         }
+
                                     });
                                 }
                             }
-                        }else{
-                            Toast.makeText(ReportActivity.this,"displayHeight_BMI ERROR!!!",Toast.LENGTH_SHORT).show();
+
+                        }else {
+                            Toast.makeText(ReportActivity.this, "displayHeight_BMI ERROR!!!", Toast.LENGTH_SHORT).show();
                         }
+
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -311,7 +371,8 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     public void getQuantityCategory(final MyCallBack myCallBack){
-
+        Log.e("getQuantityCategory: ","came first yaaaaaaaaay");
+        final CountDownLatch done = new CountDownLatch(1);
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -351,6 +412,7 @@ public class ReportActivity extends AppCompatActivity {
                                                     usersFoodArrayList.add(usersFood);
 
                                                     myCallBack.onCallback(usersFoodArrayList);
+
                                                 }
                                             }
                                         }
@@ -371,7 +433,11 @@ public class ReportActivity extends AppCompatActivity {
                     }
                 });
 
+
+        Log.e("getQuantityCategory: ","came second yaaaaaaaaay");
+
     }
+
 
     public void initCalorie_initNutrient(){
 
@@ -380,16 +446,44 @@ public class ReportActivity extends AppCompatActivity {
         //2. select * from FoodDB where foodname = foodname from UsersDB
 
 
+
+
+        Log.d("initNutrient: ","hereeeeeeeeeeeeeeeeeeee");
+        Log.d( "initNutrient", bmr_string);
+
+        // show initial goals and - for all
+        calorieGoal.setText(bmr_string);
+
+        final double carb_goal_now,prot_goal_now,fat_goal_now;
+
+        carb_goal_now = (carb_percent_acc_to_calorie*bmr)/100;
+        prot_goal_now = (protien_percent_acc_to_calorie*bmr)/100;
+        fat_goal_now = (fat_percent_acc_to_calorie*bmr)/100;
+
+        carbsGoal.setText(Double.toString(carb_goal_now));
+        proteinGoal.setText(Double.toString(prot_goal_now));
+        fatGoal.setText(Double.toString(fat_goal_now));
+        calorieStatus.setText("+");
+        proteinStatus.setText("+");
+        fatStatus.setText("+");
+        carbsStatus.setText("+");
+
+
         //1. select * food information from UsersDB
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
+
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot d : snapshot.getChildren()) {
 
+
                             final CustomFood customFood = new CustomFood();
                             for (DataSnapshot dd : d.getChildren()) {
+
                                 String dd_Key = dd.getKey();
                                 String dd_Value = dd.getValue().toString();
 
@@ -398,10 +492,12 @@ public class ReportActivity extends AppCompatActivity {
                                     foodname = dd_Value;
                                     customFood.setFoodname(foodname);
 
+
                                     //2. select * from FoodDB where foodname = foodname from UsersDB
                                     Query query = databaseReference.child("Food")
                                             .orderByChild("foodname")
                                             .equalTo(foodname);
+
 
                                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -410,8 +506,6 @@ public class ReportActivity extends AppCompatActivity {
                                             if(dataSnapshot.exists()){
 
                                                 for(DataSnapshot data:dataSnapshot.getChildren()){
-                                                    System.out.println("==============data======"+data.getValue().toString());
-
                                                     String name = data.child("foodname").getValue().toString();
                                                     calorie = data.child("calorie").getValue().toString();
                                                     carbohydrate = data.child("carbs").getValue().toString();
@@ -435,13 +529,13 @@ public class ReportActivity extends AppCompatActivity {
                                                 }
                                             }
 
-                                            System.out.println("==========a嗷嗷=="+customFoodArrayList.size());
+                                            System.out.println("==========a=="+customFoodArrayList.size());
 
 
                                             getQuantityCategory(new MyCallBack() {
                                                 @Override
                                                 public void onCallback(ArrayList<UsersFood> usersFoodArrayList1) {
-
+                                                    Log.e("getQuantityCategory: ","came third yaaaaaaaaay");
                                                     double totQuan,totCalorie = 0;
                                                     double totQuan_b,totCalorie_b=0;
                                                     double totQuan_l,totCalorie_l=0;
@@ -463,7 +557,7 @@ public class ReportActivity extends AppCompatActivity {
                                                     int typesCount = 0;
                                                     if(usersFoodArrayList1.size() == customFoodArrayList.size()){
                                                         typesCount = customFoodArrayList.size();
-                                                        System.out.println("==========呵呵=="+customFoodArrayList.size()+usersFoodArrayList1.size());
+                                                        System.out.println("============"+customFoodArrayList.size()+usersFoodArrayList1.size());
 
                                                         //calculate calorie of all food
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
@@ -506,15 +600,16 @@ public class ReportActivity extends AppCompatActivity {
                                                         //setNutrient
                                                         //calorie
                                                         calorieTotal.setText(Double.toString(allCalorieCount));
-                                                        calorieGoal.setText("2078");
+                                                        calorieGoal.setText(bmr_string);
+                                                        Log.d( "setting calorie goal:",String.valueOf(bmr));
                                                         boolean calStatus = false;
-                                                        if( (2078 - allCalorieCount) > 0 ){
+                                                        if( (bmr - allCalorieCount) > 0 ){
                                                             calStatus =true;
                                                         }
                                                         if(calStatus){
                                                             calorieStatus.setText("+");
                                                             //predictedWeight - loss weight
-                                                            Double left = (2078 - allCalorieCount)/1000;
+                                                            Double left = (bmr - allCalorieCount)/1000;
                                                             final Double less = left*0.25;
                                                             getWeight(new WeightCallBack() {
                                                                 @Override
@@ -527,7 +622,7 @@ public class ReportActivity extends AppCompatActivity {
                                                         }else{
                                                             calorieStatus.setText("-");
                                                             //predictedWeight - earn weight
-                                                            Double left = (allCalorieCount - 2078)/1000;
+                                                            Double left = (allCalorieCount - bmr)/1000;
                                                             final Double more = left*0.5;
                                                             getWeight(new WeightCallBack() {
                                                                 @Override
@@ -542,9 +637,8 @@ public class ReportActivity extends AppCompatActivity {
                                                         DecimalFormat df = new DecimalFormat("0.0");
                                                         //Protein
                                                         proteinTotal.setText(df.format(allProteinCount));
-                                                        proteinGoal.setText("37");
                                                         boolean proStatus = false;
-                                                        if( (37 - allProteinCount) > 0 ){
+                                                        if( (prot_goal_now - allProteinCount) > 0 ){
                                                             proStatus =true;
                                                         }
                                                         if(proStatus){
@@ -554,9 +648,8 @@ public class ReportActivity extends AppCompatActivity {
                                                         }
                                                         //Carbs
                                                         carbsTotal.setText(df.format(allCarbsCount));
-                                                        carbsGoal.setText("290");
                                                         boolean carbohydrateStatus = false;
-                                                        if( (290 - allCarbsCount) > 0 ){
+                                                        if( (carb_goal_now - allCarbsCount) > 0 ){
                                                             carbohydrateStatus =true;
                                                         }
                                                         if(carbohydrateStatus){
@@ -566,9 +659,8 @@ public class ReportActivity extends AppCompatActivity {
                                                         }
                                                         //Fat
                                                         fatTotal.setText(df.format(allFatCount));
-                                                        fatGoal.setText("27");
                                                         boolean fattttStatus = false;
-                                                        if( (27 - allFatCount) > 0 ){
+                                                        if( (fat_goal_now - allFatCount) > 0 ){
                                                             fattttStatus =true;
                                                         }
                                                         if(fattttStatus){
@@ -676,7 +768,7 @@ public class ReportActivity extends AppCompatActivity {
                                                     d_dinnerPercent = d_dinnerPercent * 100;
                                                     d_otherPercent = d_otherPercent * 100;
 
-                                                    String str_breakfastPercent = df.format(d_breakfastPercent);//format返回String
+                                                    String str_breakfastPercent = df.format(d_breakfastPercent);//formatString
                                                     String str_lunchPercent = df.format(d_lunchPercent);
                                                     String str_dinnerPercent = df.format(d_dinnerPercent);
                                                     String str_otherPercent = df.format(d_otherPercent);

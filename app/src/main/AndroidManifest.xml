@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".login.SplashActivity"
+            android:noHistory="true"
             >
 
             <intent-filter>
@@ -27,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.LoginActivity"
-            android:label="signin"/>
+            android:label="signin" android:noHistory="true"/>
         <activity android:name=".login.RegisterActivity"
             android:label="register"/>
         <activity android:name=".login.ResetPasswordActivity"
@@ -46,12 +47,8 @@
             android:label="profile"/>
         <activity android:name=".userSetting.MyFoodList"
             android:label="MyFoodList"/>
-        <activity android:name=".addMeal.CameraActivity"
-            android:label="take_photo"/>
         <activity android:name=".main.ReportActivity"
             android:label="report"/>
-        <activity android:name=".addMeal.ImageConfirmActivity"
-            android:label="imageInfo_confirm"/>
         <activity android:name=".addMeal.ManuallyInputActivity"
         android:label="Manually_input"/>
         <activity android:name=".addMeal.FoodDisplayActivity"

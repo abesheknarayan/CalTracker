@@ -536,21 +536,21 @@ public class ReportActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onCallback(ArrayList<UsersFood> usersFoodArrayList1) {
                                                     Log.e("getQuantityCategory: ","came third yaaaaaaaaay");
-                                                    double totQuan,totCalorie = 0;
-                                                    double totQuan_b,totCalorie_b=0;
-                                                    double totQuan_l,totCalorie_l=0;
-                                                    double totQuan_d,totCalorie_d=0;
-                                                    double totQuan_o,totCalorie_o=0;
+                                                        double totQuan,totCalorie = 0;
+                                                        double totQuan_b,totCalorie_b=0;
+                                                        double totQuan_l,totCalorie_l=0;
+                                                        double totQuan_d,totCalorie_d=0;
+                                                        double totQuan_o,totCalorie_o=0;
 
-                                                    double allCalorieCount = 0;
-                                                    double allCalorieCount_b = 0;
-                                                    double allCalorieCount_l = 0;
-                                                    double allCalorieCount_d = 0;
-                                                    double allCalorieCount_o = 0;
+                                                        double allCalorieCount = 0;
+                                                        double allCalorieCount_b = 0;
+                                                        double allCalorieCount_l = 0;
+                                                        double allCalorieCount_d = 0;
+                                                        double allCalorieCount_o = 0;
 
-                                                    double totProtein=0,allProteinCount = 0;
-                                                    double totCarbs = 0, allCarbsCount =0;
-                                                    double totFat = 0, allFatCount =0;
+                                                        double totProtein=0,allProteinCount = 0;
+                                                        double totCarbs = 0, allCarbsCount =0;
+                                                        double totFat = 0, allFatCount =0;
 
 
 

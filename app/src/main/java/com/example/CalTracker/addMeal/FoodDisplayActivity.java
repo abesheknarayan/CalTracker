@@ -11,11 +11,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.CalTracker.login.User;
+import com.example.CalTracker.main.ReportActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,6 +59,10 @@ public class FoodDisplayActivity extends AppCompatActivity {
     public StorageReference storageReference;
     ImageView food_display_photo;
 
+    public String height,weight,age,gender,bmi,bmr_string;
+
+    double bmr;
+
 
 
 
@@ -67,7 +74,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        ll_quit = (LinearLayout)findViewById(R.id.ll_display_food_cancel);
+        ll_quit = (LinearLayout) findViewById(R.id.ll_display_food_cancel);
         ll_quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,9 +85,9 @@ public class FoodDisplayActivity extends AppCompatActivity {
             }
         });
 
-        calorieIntake = (TextView)findViewById(R.id.meal_display_already_intake);
-        calorieTotal = (TextView)findViewById(R.id.meal_display_total_intake);
-        calorieLeft= (TextView)findViewById(R.id.meal_display_left_intake);
+        calorieIntake = (TextView) findViewById(R.id.meal_display_already_intake);
+        calorieTotal = (TextView) findViewById(R.id.meal_display_total_intake);
+        calorieLeft = (TextView) findViewById(R.id.meal_display_left_intake);
         progressBar = (ProgressBar) findViewById(R.id.calorie_progress_bar);
         getIntakefromDatabaseandDisplay();
 
@@ -96,7 +103,115 @@ public class FoodDisplayActivity extends AppCompatActivity {
         storageReference = storage.getReference();
         food_display_photo = (ImageView) findViewById(R.id.food_display_photo);
 
+        get_Weight_BMI_fromDatabase();
     }
+
+
+    public void get_BMR()
+    {
+        Log.d("height",height);
+        Log.d("weight",weight);
+        Log.d("age",age);
+        Log.d("gender",gender);
+        Double now_height,now_weight,now_age;
+        now_height = Double.parseDouble(height);
+        now_weight = Double.parseDouble(weight);
+        now_age = Double.parseDouble(age);
+        DecimalFormat df = new DecimalFormat("0.00");
+        // used Miffin-St Jeor Equation
+        if(gender.equals("Male"))
+        {
+            // male
+            bmr = 10*now_weight + (6.25)*(now_height) - 5*now_age + 5;
+        }
+        else{
+            // female
+            bmr = 10*now_weight + (6.25)*(now_height) - 5*now_age - 161;
+        }
+        bmr_string = Double.toString(bmr);
+        Log.d("get_BMR: ",bmr_string);
+
+
+
+    }
+
+
+     public void get_Weight_BMI_fromDatabase() {
+            //get userID
+            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            Log.d("BMI_fromDatabase: ", "here");
+
+            //Get the weight and BMI of the current user from the database
+            databaseReference.child("Users").child(uid)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            User user = snapshot.getValue(User.class);
+
+                            if (user != null) {
+                                for (DataSnapshot d : snapshot.getChildren()) {
+
+                                    String userInfo_Key = d.getKey();
+                                    if (!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password") && !userInfo_Key.equals("confirm_password") && !userInfo_Key.equals("notFirstTime") && !(d.getChildrenCount() == 3)) {
+
+                                        databaseReference.child("Users").child(uid)
+                                                .child(userInfo_Key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot d : dataSnapshot.getChildren()) {
+
+                                                    String d_Key = d.getKey();
+                                                    if (d_Key.equals("weight")) {
+                                                        weight = d.getValue().toString();
+                                                        Log.d("weight", weight);
+
+                                                    } else if (d_Key.equals("height")) {
+                                                        height = d.getValue().toString();
+                                                        Log.d("height", height);
+
+                                                    } else if (d_Key.equals("age")) {
+                                                        age = d.getValue().toString();
+                                                        Log.d("age", age);
+
+                                                    } else if (d_Key.equals("gender")) {
+                                                        gender = d.getValue().toString();
+                                                        Log.d("gender", gender);
+                                                    } else if (d_Key.equals("bmi")) {
+                                                        bmi = d.getValue().toString();
+                                                        Log.d("bmi", bmi);
+
+                                                        Double d_bmi = Double.parseDouble(bmi);
+                                                        DecimalFormat df = new DecimalFormat("0.00");
+                                                        String str_bmi = df.format(d_bmi);
+
+                                                    }
+                                                }
+                                                get_BMR();
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+
+                                        });
+                                    }
+                                }
+
+                            } else {
+                                Toast.makeText(FoodDisplayActivity.this, "displayHeight_BMI ERROR!!!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+        }
+
 
 
     public void getQuantityCategory(final MyCallBack myCallBack){
@@ -244,10 +359,10 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         //Already ingested
                                                         calorieIntake.setText(Double.toString(allCalorieCount));
 
-                                                        calorieTotal.setText( Double.toString(2078) + "Cal");
+                                                        calorieTotal.setText( Double.toString(bmr) + "Cal");
 
                                                         //intake left
-                                                        Double d_calorieLeft = 2078 - allCalorieCount;
+                                                        Double d_calorieLeft = bmr - allCalorieCount;
                                                         calorieLeft.setText(Double.toString(d_calorieLeft)+" cal");
 
                                                         //progressBar

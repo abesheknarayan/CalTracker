@@ -189,7 +189,7 @@ public class ReportActivity extends AppCompatActivity {
 //        });
     }
 
-    public static void get_BMR()
+    public void get_BMR()
     {
         Log.d("height",height);
         Log.d("weight",weight);

@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 import com.example.CalTracker.R;
 import com.example.CalTracker.addMeal.CustomFood;
@@ -370,7 +371,8 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     public void getQuantityCategory(final MyCallBack myCallBack){
-
+        Log.e("getQuantityCategory: ","came first yaaaaaaaaay");
+        final CountDownLatch done = new CountDownLatch(1);
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -410,6 +412,7 @@ public class ReportActivity extends AppCompatActivity {
                                                     usersFoodArrayList.add(usersFood);
 
                                                     myCallBack.onCallback(usersFoodArrayList);
+
                                                 }
                                             }
                                         }
@@ -430,7 +433,11 @@ public class ReportActivity extends AppCompatActivity {
                     }
                 });
 
+
+        Log.e("getQuantityCategory: ","came second yaaaaaaaaay");
+
     }
+
 
     public void initCalorie_initNutrient(){
 
@@ -473,29 +480,24 @@ public class ReportActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot d : snapshot.getChildren()) {
 
-                            Log.i("key :",d.getKey().toString());
 
                             final CustomFood customFood = new CustomFood();
-                            Log.d("all user foods here"," ============");
                             for (DataSnapshot dd : d.getChildren()) {
 
                                 String dd_Key = dd.getKey();
                                 String dd_Value = dd.getValue().toString();
-                                Log.d("key",dd_Key);
-                                Log.d("value",dd_Value);
 
                                 //Traverse the UsersDB and get all food information
                                 if (dd_Key.equals("foodname")) {
                                     foodname = dd_Value;
                                     customFood.setFoodname(foodname);
-                                    Log.d( "finalFoodkey ////// ",dd_Key);
-                                    Log.d( "finalFoodname ///// ",foodname);
 
 
                                     //2. select * from FoodDB where foodname = foodname from UsersDB
                                     Query query = databaseReference.child("Food")
                                             .orderByChild("foodname")
                                             .equalTo(foodname);
+
 
                                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -504,16 +506,6 @@ public class ReportActivity extends AppCompatActivity {
                                             if(dataSnapshot.exists()){
 
                                                 for(DataSnapshot data:dataSnapshot.getChildren()){
-                                                    if(!data.child("foodname").getValue().toString().equals(foodname))
-                                                    {
-//                                                        Log.d("onDataChange: ",data.child("foodname").getValue().toString());
-//                                                        Log.d("onDataChange2: ",foodname);
-                                                        continue;
-                                                    }
-                                                    Log.d("onDataChange: ",data.child("foodname").getValue().toString());
-                                                    Log.d("onDataChange2: ",foodname);
-                                                    System.out.println("==============data======"+data.getValue().toString());
-
                                                     String name = data.child("foodname").getValue().toString();
                                                     calorie = data.child("calorie").getValue().toString();
                                                     carbohydrate = data.child("carbs").getValue().toString();
@@ -543,7 +535,7 @@ public class ReportActivity extends AppCompatActivity {
                                             getQuantityCategory(new MyCallBack() {
                                                 @Override
                                                 public void onCallback(ArrayList<UsersFood> usersFoodArrayList1) {
-
+                                                    Log.e("getQuantityCategory: ","came third yaaaaaaaaay");
                                                     double totQuan,totCalorie = 0;
                                                     double totQuan_b,totCalorie_b=0;
                                                     double totQuan_l,totCalorie_l=0;

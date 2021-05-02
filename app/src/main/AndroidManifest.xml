@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".login.SplashActivity"
+            android:noHistory="true"
             >
 
             <intent-filter>
@@ -27,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.LoginActivity"
-            android:label="signin"/>
+            android:label="signin" android:noHistory="true"/>
         <activity android:name=".login.RegisterActivity"
             android:label="register"/>
         <activity android:name=".login.ResetPasswordActivity"

@@ -136,7 +136,10 @@ public class LoginActivity extends AppCompatActivity{
                                         else{
                                             // This is an existing user
                                             Toast.makeText(LoginActivity.this,"Sign in successfully,welcome back!",Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
                                         }
                                     }
                                 }

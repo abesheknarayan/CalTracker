@@ -120,7 +120,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
-        @Override
+    // here
+
+
+//    @Override
+//    public void onBackPressed() {
+//    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
 

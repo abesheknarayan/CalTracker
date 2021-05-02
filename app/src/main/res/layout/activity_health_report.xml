@@ -314,31 +314,18 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_gravity="right"
-                    android:layout_width="wrap_content"
-                    android:textSize="13sp"
-                    android:textStyle="italic"
-                    android:layout_height="wrap_content"
-                    android:text="@string/status_means_you_can_eat_more"/>
-
-                <TextView
-                    android:layout_gravity="right"
-                    android:textStyle="italic"
-                    android:textSize="13sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/means_you_need_to_eat_less"/>
-
             </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -456,7 +443,9 @@
 
 
     </LinearLayout>
+
 </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/ll_report_nutrient"
@@ -504,7 +493,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/darker_gray"
                             android:textStyle="italic"
-                            android:text="2342134 "
+                            android:text="NIL"
                             android:textSize="19sp"/>
 
 
@@ -794,6 +783,7 @@
             android:orientation="vertical">
 
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -811,8 +801,8 @@
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="394dp"
+                    android:layout_height="432dp"
                     android:background="#fff"
                     android:orientation="vertical">
 
@@ -824,53 +814,56 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/nutrient2"
                             android:layout_marginStart="20dp"
-                            android:textSize="14sp"/>
+                            android:text="@string/nutrient2"
+                            android:textSize="14sp" />
 
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1" />
 
                         <TextView
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/total"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/goal"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/puls"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="2dp"
-                        android:background="@color/colorGrey"
-                        android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
-                        android:paddingEnd="5dp"/>
+                        android:background="@color/colorGrey"
+                        android:paddingEnd="5dp" />
 
 
                     <LinearLayout
@@ -881,13 +874,14 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/energy_calorie"
                             android:layout_marginStart="20dp"
-                            android:textSize="12sp"/>
+                            android:text="@string/energy_calorie"
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1" />
 
                         <TextView
                             android:id="@+id/report_display_nutrient_calorie_total"
@@ -895,39 +889,43 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="0.0"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_calorie_goal"
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="2078"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_calorie_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="2dp"
-                        android:background="@color/colorGrey"
-                        android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
-                        android:paddingEnd="5dp"/>
+                        android:background="@color/colorGrey"
+                        android:paddingEnd="5dp" />
 
 
                     <LinearLayout
@@ -938,52 +936,58 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/protein_gram"
                             android:layout_marginStart="20dp"
-                            android:textSize="12sp"/>
+                            android:text="@string/protein_gram"
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_protein_total"
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="0.0"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_protein_goal"
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_protein_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="2dp"
-                        android:background="@color/colorGrey"
-                        android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
-                        android:paddingEnd="5dp"/>
+                        android:background="@color/colorGrey"
+                        android:paddingEnd="5dp" />
 
 
                     <LinearLayout
@@ -994,13 +998,14 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/carbohydrate_gram"
                             android:layout_marginStart="20dp"
-                            android:textSize="12sp"/>
+                            android:text="@string/carbohydrate_gram"
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1" />
 
                         <TextView
                             android:id="@+id/report_display_nutrient_carbohydrate_total"
@@ -1008,41 +1013,44 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="0.0"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_carbohydrate_goal"
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_carbohydrate_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
-
 
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="2dp"
-                        android:background="@color/colorGrey"
-                        android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
-                        android:paddingEnd="5dp"/>
+                        android:background="@color/colorGrey"
+                        android:paddingEnd="5dp" />
 
 
                     <LinearLayout
@@ -1053,54 +1061,84 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/fat_gram"
                             android:layout_marginStart="20dp"
-                            android:textSize="12sp"/>
+                            android:text="@string/fat_gram"
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_fat_total"
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="0.0"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_fat_goal"
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
+
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5" />
+
                         <TextView
                             android:id="@+id/report_display_nutrient_fat_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_gravity="right"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="italic"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status_means_you_can_eat_more"/>
+
+                    <TextView
+                        android:layout_gravity="right"
+                        android:textStyle="italic"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/means_you_need_to_eat_less"/>
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="2dp"
-                        android:background="@color/colorGrey"
-                        android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
-                        android:paddingEnd="5dp"/>
+                        android:background="@color/colorGrey"
+                        android:paddingEnd="5dp" />
                 </LinearLayout>
+
             </LinearLayout>
+
+
         </LinearLayout>
+
+
     </LinearLayout>
+
+
 </LinearLayout>
